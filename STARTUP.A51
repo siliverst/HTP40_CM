@@ -27,23 +27,23 @@ $NOMOD51
 ; <o> IDATALEN: IDATA memory size <0x0-0x100>
 ;     <i> Note: The absolute start-address of IDATA memory is always 0
 ;     <i>       The IDATA space overlaps physically the DATA and BIT areas.
-IDATALEN        EQU     100H
+IDATALEN        EQU     100H	
 ;
-; <o> XDATASTART: XDATA memory start address <0x0-0xFFFF> 
+; <o> XDATASTART: XDATA memory start address <0x0-0x3FF> 
 ;     <i> The absolute start address of XDATA memory
 XDATASTART      EQU     0     
 ;
-; <o> XDATALEN: XDATA memory size <0x0-0xFFFF> 
+; <o> XDATALEN: XDATA memory size <0x0-0x0400> 
 ;     <i> The length of XDATA memory in bytes.
-XDATALEN        EQU     100H	
+XDATALEN        EQU     0400H      
 ;
 ; <o> PDATASTART: PDATA memory start address <0x0-0xFFFF> 
 ;     <i> The absolute start address of PDATA memory
-PDATASTART      EQU     0
+PDATASTART      EQU     0H
 ;
 ; <o> PDATALEN: PDATA memory size <0x0-0xFF> 
 ;     <i> The length of PDATA memory in bytes.
-PDATALEN        EQU     0
+PDATALEN        EQU     0H
 ;
 ;</h>
 ;------------------------------------------------------------------------------
@@ -118,9 +118,7 @@ DPH     DATA    83H
 
                 RSEG    ?STACK
                 DS      1
-;ISEG    AT      0x80
-;?STACK: DS      0x100 - ?STACK
-	
+
                 EXTRN CODE (?C_START)
                 PUBLIC  ?C_STARTUP
 
@@ -134,7 +132,7 @@ STARTUP1:
 IF IDATALEN <> 0
                 MOV     R0,#IDATALEN - 1
                 CLR     A
-IDATALOOP:      MOV     @R0,A
+IDATALOOP:      MOV     @R0,A  
                 DJNZ    R0,IDATALOOP
 ENDIF
 

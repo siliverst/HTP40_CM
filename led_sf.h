@@ -16,8 +16,8 @@ void led_sf_8hz_proc ( void );
 void led_flash (uint8_t times);
 
 enum led_states {
-	LED_OFF,
-	LED_ON
+	LED_ON,
+	LED_OFF
 };
 
 

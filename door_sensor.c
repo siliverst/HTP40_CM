@@ -1,4 +1,4 @@
-#include <SH79F084B.h>
+#include "CMS80F231x.h"
 #include "globalvar.h"
 #include "door_sensor.h"
 #include "pin_manager.h"

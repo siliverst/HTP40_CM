@@ -5,12 +5,12 @@
 extern "C" {
 #endif
 
-sbit 		COMPR_PIN 	= P4^1;
-sbit 		HEATER_PIN 	= P3^3;
-sbit 		FAN_PIN 	= P4^2;
-sbit		LED_PIN		= P1^5;
-sbit		REED_PIN	= P1^4;
-
+sbit		LED_PIN		= P0^2;
+sbit 		COMPR_PIN 	= P2^6;
+sbit 		FAN_PIN 	= P3^1;
+sbit 		HEATER_PIN 	= P3^2;
+sbit		REED_PIN	= P0^3;
+	
 void pin_manager_init (void);
 	
 	

@@ -1,4 +1,4 @@
-#include <SH79F084B.h>
+#include "CMS80F231x.h"
 #include <stdint.h>
 #include "globalvar.h"
 #include "led_sf.h"

@@ -13,8 +13,8 @@
 <data>0xFF</data>
 <data>0xFF</data>
 <data>0xFF</data>
-<data>0xFF</data>
-<data>0xFF</data>
+<data>0x55</data>
+<data>0xAA</data>
 <data>0xFF</data>
 <data>0xFF</data>
 </config>

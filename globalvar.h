@@ -15,7 +15,7 @@ extern "C" {
 #include "typedefs.h"
 
 // Версия FW
-#define	FW_VERSION          103
+#define	FW_VERSION          203
 
 //#define TEST_MODE	
 //#define D_MODE
@@ -54,7 +54,7 @@ extern "C" {
 //     CPU defs
 //===========================================================================================
 //wdt period is 1024
-#define wdt_reset()		RSTSTAT=0x01
+//#define wdt_reset()		RSTSTAT=0x01
 #define cli()			EA=0
 #define sei()			EA=1
 

@@ -1,20 +1,22 @@
-#include <SH79F084B.h>
+#include "CMS80F231x.h"
 #include <intrins.h>
 #include "pin_manager.h"
+
 #include "globalvar.h"
+
 #include "service_timing.h"
-#include "uart.h"
-#include "uart_proc.h"
-#include "measuring.h"
-#include "trim.h"
-#include "switch_flags.h"
+//#include "uart.h"
+//#include "uart_proc.h"
+//#include "measuring.h"
+//#include "trim.h"
+//#include "switch_flags.h"
 #include "led_sf.h"
-#include "mk.h"
-#include "fan.h"
-#include "test_auto.h"
-#include "lamp.h"
+//#include "mk.h"
+//#include "fan.h"
+//#include "test_auto.h"
+//#include "lamp.h"
 #include "door_sensor.h"
-#include "eeprom.h"
+//#include "eeprom.h"
 
 /*
 ToDo
@@ -28,24 +30,28 @@ ToDo
 
 void main ()
 {
-	CLKCON	 = bin(00001100);		// инициализация сис клок, пока 16.6МГц
+	TA = 0xAA;
+	TA = 0x55;
+	CLKDIV = 0x00;		// инициализация сис клок, пока 24 МГц (установлена в конфиге)
 	_nop_();
 	_nop_();
 	_nop_();
 	_nop_();
 	cli();
 	pin_manager_init();
+
 	led_sf_init();
-	measuring_init();
-	trim_init();
+//	measuring_init();
+//	trim_init();
 	service_timing_init();
 	door_sensor_init();
-	lamp_init();
-	uart_init();
-	uart_grahp_init ();
+//	lamp_init();
+//	uart_init();
+//	uart_grahp_init ();
 	
-	wdt_reset();
+	/*	wdt_reset();*/
 	sei();							// глобальные прерывания разрешены
+	/*
 	
 	while (flags.start_now)
 	{
@@ -66,16 +72,17 @@ void main ()
 	EEPROM_DataInit();
 	fan_init ();
 	mk_init ();
-	
+*/
 	while(1){
-		measure();
+		//measure();
 		service_timing_proc();
-		switch_flags_proc();
-		mk_proc();
-		mk_defrost_proc();
+		//switch_flags_proc();
+		//mk_proc();
+		//mk_defrost_proc();
 		door_sensor_proc();
-		lamp_proc();
-		fan_proc();
-		wdt_reset();
+		//lamp_proc();
+		//fan_proc();
+		//wdt_reset();
 	}
+	
 }
