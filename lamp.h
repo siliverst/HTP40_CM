@@ -25,11 +25,15 @@ void lamp_set ( uint8_t state);
 
 #define LAMP_FADE_DELAY					4
 #define LAMP_FADE_INTERVALS				512
-#define LAMP_MAX_DUTY					255
+//#define LAMP_MAX_DUTY					255		//8bit
+#define LAMP_MAX_DUTY					1023	//10bit
 #define LAMP_OFF_DUTY					0
 #define LAMP_FADE_IN_START_INTERVAL		70
-#define LAMP_FADE_OUT_CONST				2
-#define LAMP_FADE_IN_CONST				1023
+//#define LAMP_FADE_OUT_CONST			2		//8bit
+#define LAMP_FADE_OUT_CONST				2		//10bit
+//#define LAMP_FADE_IN_CONST			1023	//8bit
+#define LAMP_FADE_IN_CONST				255		//10bit
+//внимание! Есть ещё 2 коррекции 8-10 бит в исходном конде, не забудь проверить!
 
 enum lamp_states{
 	LOFF,

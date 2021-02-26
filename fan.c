@@ -1,5 +1,5 @@
-#include <SH79F084B.h>
-#include <stdint.h>
+#include "CMS80F231x.h"
+#include "stdint.h"
 #include "globalvar.h"
 #include "fan.h"
 #include "door_sensor.h"

@@ -4,6 +4,18 @@
 
 void pin_manager_init (void)
 {
+	//TRIM_PIN
+	bitclr(P0TRIS,4);		// вход
+	P04CFG = 0x01;			// аналоговый вход AN4
+	
+	//FC_TEMP_PIN
+	bitclr(P0TRIS,1);		// вход
+	P01CFG = 0x01;			// аналоговый вход AN1
+	
+	//EVA_TEMP_PIN
+	bitclr(P2TRIS,2);		// вход
+	P22CFG = 0x01;			// аналоговый вход AN8
+		
 	//LED_PIN
 	P02CFG = 0x00;			// обычный GPIO
 	bitset(P0TRIS,2);		// выход
@@ -48,6 +60,46 @@ void pin_manager_init (void)
 	bitclr(P0SR,3);			// быстрый фронт
 	bitclr(P0DS,3);			// читаю пин статус в режиме входа, и защёлку в режиме выхода
 	REED_PIN = 1;			// в высокое состояние
+	
+	//BUZZER_PIN
+	P05CFG = 0x18;			// выход BEEP
+	bitset(P0TRIS,5);		// выход
+	bitclr(P0OD,5);			// push-pull
+	bitclr(P0DR,5);			// сильный выход
+	bitclr(P0SR,5);			// быстрый фронт
+	bitclr(P0DS,5);			// читаю пин статус в режиме входа, и защёлку в режиме выхода
+	BUZZER_PIN = 0;			// в низкое состояние
+	// временно инициализация звука тут	3989Гц.			
+	BUZDIV = 47;
+	BUZCON = bin(00000011);	//старший бит включает/отключает звук
+	
+	//LAMP_PIN
+	P24CFG = 0x12;			// выход PWM0
+	bitset(P2TRIS,4);		// выход
+	bitclr(P2OD,4);			// push-pull
+	bitclr(P2DR,4);			// сильный выход
+	bitclr(P2SR,4);			// быстрый фронт
+	bitclr(P2DS,4);			// читаю пин статус в режиме входа, и защёлку в режиме выхода
+	LAMP_PIN = 1;			// в низкое состояние
+	
+	//FASE_PIN
+	P30CFG = 0x00;			// обычный GPIO
+	bitclr(P3TRIS,0);		// вход
+	bitclr(P3OD,0);			// push-pull
+	bitclr(P3DR,0);			// сильный выход
+	bitclr(P3SR,0);			// быстрый фронт
+	bitclr(P3DS,0);			// читаю пин статус в режиме входа, и защёлку в режиме выхода
+	FASE_PIN = 1;			// в высокое состояние
+	PS_INT0 = 0x30;			// вход подключаю к прерыванию 0
+	
+	//TEST_PIN
+	P23CFG = 0x00;			// обычный GPIO
+	bitset(P2TRIS,3);		// выход
+	bitclr(P2OD,3);			// push-pull
+	bitclr(P2DR,3);			// сильный выход
+	bitclr(P2SR,3);			// быстрый фронт
+	bitclr(P2DS,3);			// читаю пин статус в режиме входа, и защёлку в режиме выхода
+	TEST_PIN = 0;			// в низкое состояние
 	
 }
 
@@ -141,15 +193,25 @@ you need to set the port direction control to input mode.
 PORTx function configuration register PxnCFG
 Bit7~Bit5 - reserved, all must be 0.
 Bit4~Bit0
-PxnCFG <4:0>: Function configuration bits, the default is GPIO function. See the port function configuration description for details.
-There are 8 Px function configuration registers, including Px0CFG~Px7CFG, which control the function configuration of x0~Px7 respectively.
-Each port has a function configuration register. Through the function configuration register PxnCFG, each port can be configured as any digital function.
+PxnCFG <4:0>: Function configuration bits, the default is GPIO function. 
+See the port function configuration description for details.
+There are 8 Px function configuration registers, 
+including Px0CFG~Px7CFG, which control the function configuration of x0~Px7 respectively.
+Each port has a function configuration register. 
+Through the function configuration register PxnCFG, 
+each port can be configured as any digital function.
 For example, the function configuration register of port P00 is P00CFG, and different values ​​of the register settings correspond to different digital functions.
 For example: To set P2.4 as the BEEP buzzer function, the configuration is as follows:
 Assembly: MOV #P24CFG, #18H
 C: P24CFG = 0x18;
-When the port is used for multiplexing functions, it is not necessary to configure the port direction register PxTRIS. In addition to the SCL and SDA functions, other multiplexed functions are forced to turn off the pull-up resistor and open-drain output by hardware, that is, the pull-up resistor PxUP or the open-drain output PxOD is invalid by software.
-When the port is multiplexed with SCL and SDA functions, the hardware forces the port to be an open-drain output, and the pull-up resistor PxUP can be set by software.
+When the port is used for multiplexing functions, 
+it is not necessary to configure the port direction register PxTRIS. 
+In addition to the SCL and SDA functions, 
+other multiplexed functions are forced to turn off the pull-up resistor 
+and open-drain output by hardware, that is, the pull-up resistor PxUP or the open-drain output PxOD is invalid by software.
+When the port is multiplexed with SCL and SDA functions, 
+the hardware forces the port to be an open-drain output, 
+and the pull-up resistor PxUP can be set by software.
 
 The digital functions corresponding to different configuration values are as follows:
 Configuration value | Features | direction | Function Description

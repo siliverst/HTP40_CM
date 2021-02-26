@@ -10,15 +10,23 @@
 #define MEASURING_H_
 
 // референс 5V
+#define ADC_REF_VCC			0x1C
 // Адреса каналов
 
-#define ADC_CHAN_FC			0x06
-#define ADC_CHAN_EVA		0x07
-#define ADC_CHAN_TRIM		0x02
+#define ADC_CHAN_FC			0x01
+#define ADC_CHAN_EVA		0x08
+#define ADC_CHAN_TRIM		0x04
 
-//биты АЦП
-#define GO_DONE				0
-#define ADCIF				6
+//биты АЦП ADCON0
+#define ADGO				1
+#define ADCHS4				7
+
+//биты EIF2
+#define ADCIF				4
+
+// биты EIE2
+#define ADCIE				4
+
 
 
 

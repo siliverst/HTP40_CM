@@ -59,21 +59,19 @@ void service_timing_proc ( void )
 	static uint8_t quere8hz;
 	
 	if (F_8Hz){
-		if (++quere8hz >= 10){
-			quere8hz = 0;
-		}
+		quere8hz++;
 		switch(quere8hz){
-			//case 0: switch_flags_fc_sensor_proc();break;
-			//case 1: switch_flags_eva_sensor_proc();break;
-			//case 2: tirm_8hz_proc();break;
-			//case 3: mk_8hz_proc_en();break;
-			case 4: led_sf_8hz_proc();break;
-			//case 5: lamp_8Hz_proc();break;
-			//case 6: fan_8Hz_proc();break;
-			//case 7: switch_flags_cepb_proc();break;
-			case 8: service_timing_counters();break;
-			//case 9: uart_proc();
-			F_8Hz = 0; break;
+			case 1: switch_flags_fc_sensor_proc();break;
+			case 2: switch_flags_eva_sensor_proc();break;
+			//case 3: tirm_8hz_proc();break;
+			case 4: mk_8hz_proc_en();break;
+			case 5: led_sf_8hz_proc();break;
+			case 6: lamp_8Hz_proc();break;
+			case 7: fan_8Hz_proc();break;
+			case 8: switch_flags_cepb_proc();break;
+			case 9: service_timing_counters();//break;
+			//case 10: uart_proc();
+			F_8Hz = 0; quere8hz = 0;break;
 			default: break;
 		}
 	}
@@ -95,10 +93,10 @@ void service_timing_proc_int (void)	interrupt 16
 	
 	if (++counter_15ms >= PERIOD_15MS){
         counter_15ms = 0;
-	//	reset_mains_int_wd ();
+		reset_mains_int_wd ();
 		door_sensor_66hz_proc();
     }
-	//lamp_1ms_proc();
+	lamp_1ms_proc();
 
 	//uart_rx_timeout_1ms_proc();
 }
