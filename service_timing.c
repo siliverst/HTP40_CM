@@ -63,7 +63,7 @@ void service_timing_proc ( void )
 		switch(quere8hz){
 			case 1: switch_flags_fc_sensor_proc();break;
 			case 2: switch_flags_eva_sensor_proc();break;
-			//case 3: tirm_8hz_proc();break;
+			case 3: tirm_8hz_proc();break;
 			case 4: mk_8hz_proc_en();break;
 			case 5: led_sf_8hz_proc();break;
 			case 6: lamp_8Hz_proc();break;

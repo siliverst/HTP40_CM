@@ -31,6 +31,7 @@ uint8_t EEPROM_read_byte(uint16_t eaddr)
 //========================================================================================
 void EEPROM_write_byte(uint16_t eaddr, uint8_t edata)
 {
+	MLOCK = 0xAA;	//flash unlock 
 	MDATA = edata;
 	MADRL = lobyte(eaddr);
 	MADRH = hibyte(eaddr);
@@ -41,6 +42,7 @@ void EEPROM_write_byte(uint16_t eaddr, uint8_t edata)
 	_nop_();
 	_nop_();
 	_nop_();
+	MLOCK = 0x00;	//flash lock
 }
 
 //========================================================================================
