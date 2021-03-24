@@ -6,7 +6,7 @@
 #define SX_TIME						(24*60)
 #define ERROR_TIME					(20*60)
 // 12 моточасов до оттайки
-#define TIME_TO_DEFROST					(12*60)
+#define TIME_TO_DEFROST					(13*60)
 // 6 минут пассивной оттайки
 #define TIME_PASSIVE_DEFROST			420
 #define T_EVA_FOR_START_DEFROST			-8.0

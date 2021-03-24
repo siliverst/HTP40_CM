@@ -32,7 +32,7 @@ void led_sf_8hz_proc ( void )
 		if (++counter >= 2)
 		{
 			counter = 0;
-			if (LED_PIN){
+			if (LED_PIN == LED_ON){
 				LED_PIN = LED_OFF;
 			}else{
 				LED_PIN = LED_ON;
@@ -44,7 +44,7 @@ void led_sf_8hz_proc ( void )
 	}else if (gvar.tr_sector == TR_SEC_SF){
 		if (++counter >=4){
 			counter = 0;
-			if (LED_PIN){
+			if (LED_PIN == LED_ON){
 				LED_PIN = LED_OFF;
 			}else{
 				LED_PIN = LED_ON;
