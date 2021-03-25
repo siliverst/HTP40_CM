@@ -53,4 +53,5 @@ void mk_defrost_proc (void);
 void mk_defrost_start ( void );
 void mk_defrost_init ( void );
 uint8_t mk_get_defrost_status ( void );
+void sx_counter_reload(void);
 #endif /* MK_H_ */

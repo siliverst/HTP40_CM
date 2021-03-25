@@ -15,7 +15,7 @@ extern "C" {
 #include "typedefs.h"
 
 // Версия FW
-#define	FW_VERSION          204
+#define	FW_VERSION          205
 
 //#define TEST_MODE	
 //#define D_MODE

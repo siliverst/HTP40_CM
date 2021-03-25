@@ -48,7 +48,6 @@ void mk_init (void)
 	compressor = 0;
 	proc_8Hz_en = 0;
 	mk_defrost_init();
-	mk_sx_counter = SX_TIME;
 	sf = 0;
 	if(cepb){
 		mk_defrost_start();
@@ -97,10 +96,11 @@ static void mk_8hz_proc (void)
 static void minute_proc (void)
 {
 	if (sf){
-		mk_sx_counter--;
+		if (mk_sx_counter) {
+			mk_sx_counter--;
+		}
 		if (!mk_sx_counter){
 			sf = 0;
-			mk_sx_counter = SX_TIME;
 		}
 	}
 
@@ -122,6 +122,11 @@ static void second_proc (void)
 {
 	if (disable_compressor_on_counter) disable_compressor_on_counter--;
 	if (defrost_heater_work_all_time_counter) defrost_heater_work_all_time_counter--;	
+}
+
+void sx_counter_reload(void)
+{
+	mk_sx_counter = SX_TIME;
 }
 
 void mk_proc (void)

@@ -118,6 +118,7 @@ void switch_flags_proc (void)
 		if (last_trim_state == TR_SEC_SF){
 			if (!sf){
 				if (!cepb){
+					sx_counter_reload();
 					sf = 1;
 				}
 			}
