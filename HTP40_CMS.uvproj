@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>HTP40_CM</TargetName>
+      <TargetName>HTP40_CMS</TargetName>
       <ToolsetNumber>0x0</ToolsetNumber>
       <ToolsetName>MCS-51</ToolsetName>
       <uAC6>0</uAC6>
@@ -46,7 +46,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>HTP40_CM</OutputName>
+          <OutputName>HTP40_CMS</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
