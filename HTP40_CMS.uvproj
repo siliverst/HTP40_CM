@@ -674,6 +674,16 @@
               <FileType>5</FileType>
               <FilePath>.\eeprom.h</FilePath>
             </File>
+            <File>
+              <FileName>sound.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\sound.c</FilePath>
+            </File>
+            <File>
+              <FileName>sound.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\sound.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

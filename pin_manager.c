@@ -62,16 +62,17 @@ void pin_manager_init (void)
 	REED_PIN = 1;			// в высокое состояние
 	
 	//BUZZER_PIN
+	#ifdef SOUND_ON
 	P05CFG = 0x18;			// выход BEEP
+	#else
+	P05CFG = 0x00;			// обычный GPIO
+	#endif
 	bitset(P0TRIS,5);		// выход
 	bitclr(P0OD,5);			// push-pull
 	bitclr(P0DR,5);			// сильный выход
 	bitclr(P0SR,5);			// быстрый фронт
 	bitclr(P0DS,5);			// читаю пин статус в режиме входа, и защёлку в режиме выхода
 	BUZZER_PIN = 0;			// в низкое состояние
-	// временно инициализация звука тут	3989Гц.			
-	BUZDIV = 47;
-	BUZCON = bin(00000011);	//старший бит включает/отключает звук
 	
 	//LAMP_PIN
 	P24CFG = 0x12;			// выход PWM0

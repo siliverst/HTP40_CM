@@ -15,17 +15,20 @@
 #include "lamp.h"
 #include "door_sensor.h"
 #include "eeprom.h"
+#include "sound.h"
 
 /*
 ToDo
 uart
-wd
 режим тестирования.
-звук
 проверить как время SF засекается останавливается.
 */
 
 /*
+v2.06 (2021.05.08)
+Добавил управление звуковым сигналом, если в течение 40 секунд открыта дверь, начинается звуковая сигнализация до закрытия двери.
+Добавил WDT.
+
 v2.05 (2021.03.25)
 исправил управление счётчиком SX
 v2.04 (2021.03.24)
@@ -41,8 +44,6 @@ v2.04 (2021.03.24)
 - выполнением операций по 3.4.2.1;
 - после завершения оттайки
 */
-
-
 
 //v1.03 (2021.02.04)
 // корректировка гистерезиса
@@ -60,28 +61,32 @@ void main ()
 	_nop_();
 	cli();
 	pin_manager_init();
+	wdt_init (WDT_CLK_67108864);
+	wdt_reset();
 	led_sf_init();
 	measuring_init();
 	trim_init();
 	service_timing_init();
 	door_sensor_init();
 	lamp_init();
+	#ifdef SOUND_ON
+	sound_init();
+	#endif
 //	uart_init();
 //	uart_grahp_init ();
-	
-	/*	wdt_reset();*/
 	sei();							// глобальные прерывания разрешены
 	
 	
 	while (flags.start_now)
 	{
-//		wdt_reset();
+		wdt_reset();
 		measure();
 	}
 	
 	switch_flags_init();
 	
 	while (gvar.tr_sector == 0xFF){
+		wdt_reset();
 		tirm_8hz_proc();
 	}
 	
@@ -94,6 +99,7 @@ void main ()
 	mk_init ();
 	
 	while(1){
+		wdt_reset();
 		measure();
 		service_timing_proc();
 		switch_flags_proc();
@@ -102,7 +108,9 @@ void main ()
 		door_sensor_proc();
 		lamp_proc();
 		fan_proc();
-		//wdt_reset();
+		#ifdef SOUND_ON
+		sound_proc();
+		#endif
 	}
 	
 }

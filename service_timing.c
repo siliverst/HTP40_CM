@@ -12,9 +12,13 @@
 #include "lamp.h"
 #include "fan.h"
 #include "door_sensor.h"
+#include "sound.h"
 
-static data uint8_t counter_8Hz;
-static data uint8_t counter_15ms;
+static uint8_t data counter_8Hz;
+static uint8_t data counter_15ms;
+#ifdef SOUND_ON
+static uint8_t data tfor05hz;
+#endif
 static void service_timing_counters ( void );
 
 //------------------------------------------------------------------------------
@@ -35,6 +39,9 @@ void service_timing_init (void)
 
 	F_8Hz = 0;
 	counter_8Hz = 0;
+	#ifdef SOUND_ON
+	tfor05hz = 0;
+	#endif
 	test_dis = 0;
 	
 }
@@ -69,8 +76,11 @@ void service_timing_proc ( void )
 			case 6: lamp_8Hz_proc();break;
 			case 7: fan_8Hz_proc();break;
 			case 8: switch_flags_cepb_proc();break;
-			case 9: service_timing_counters();//break;
-			//case 10: uart_proc();
+			case 9: service_timing_counters();break;
+			#ifdef SOUND_ON
+			case 10: sound_8Hz_proc();break;
+			#endif
+			case 11: /*uart_proc();*/
 			F_8Hz = 0; quere8hz = 0;break;
 			default: break;
 		}
@@ -89,6 +99,11 @@ void service_timing_proc_int (void)	interrupt 16
     if (++counter_8Hz >= PERIOD_8HZ){
         counter_8Hz = 0;
         F_8Hz = 1;
+		#ifdef SOUND_ON
+		if (++tfor05hz >= 16) {
+			tfor05hz = 0;						//прошла два секунда	
+		}
+		#endif
     }
 	
 	if (++counter_15ms >= PERIOD_15MS){
@@ -100,3 +115,10 @@ void service_timing_proc_int (void)	interrupt 16
 
 	//uart_rx_timeout_1ms_proc();
 }
+
+#ifdef SOUND_ON
+uint8_t timer05hz_get (void)
+{
+	return tfor05hz;
+}
+#endif

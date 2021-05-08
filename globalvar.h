@@ -15,11 +15,11 @@ extern "C" {
 #include "typedefs.h"
 
 // Версия FW
-#define	FW_VERSION          205
+#define	FW_VERSION          206
 
 //#define TEST_MODE	
 //#define D_MODE
-
+#define SOUND_ON
 
 
 #define bin(a) ((( (a/10000000*128) + \
@@ -57,8 +57,47 @@ extern "C" {
 //#define wdt_reset()		RSTSTAT=0x01
 #define cli()			EA=0
 #define sei()			EA=1
+/*----------------------------------------------------------------------------
+ **WDT делители
+/*---------------------------------------------------------------------------*/
+#define WDT_CLK_131072 			(0x00)		/*溢出时间= Tsys * 131072  (2^17 * Tsys)*/
+#define WDT_CLK_262144 			(0x01)		/*溢出时间= Tsys * 262144  (2^18 * Tsys)*/
+#define WDT_CLK_524288 			(0x02)		/*溢出时间= Tsys * 524288  (2^19 * Tsys)*/
+#define WDT_CLK_1048576			(0x03)		/*溢出时间= Tsys * 1048576  (2^20 * Tsys)*/
+#define WDT_CLK_2097152 		(0x04)		/*溢出时间= Tsys * 2097152  (2^21 * Tsys)*/
+#define	WDT_CLK_4194304			(0x05)		/*溢出时间= Tsys * 4194304  (2^22 * Tsys)*/
+#define	WDT_CLK_16777216		(0x06)		/*溢出时间= Tsys * 16777216 (2^24 * Tsys)*/
+#define	WDT_CLK_67108864		(0x07)		/*溢出时间= Tsys * 67108864 (2^26 * Tsys)*/
 
+/*-----------------------------------------------------------------
+**WDT
+------------------------------------------------------------------*/
+/*------WDCON-----------------------------------------------------*/
+#define WDT_WDCON_SWRST_Pos			(7)
+#define WDT_WDCON_SWRST_Msk			(0x1 << WDT_WDCON_SWRST_Pos)
+#define WDT_WDCON_PORF_Pos			(6)
+#define WDT_WDCON_PORF_Msk			(0x1 << WDT_WDCON_PORF_Pos)
+#define WDT_WDCON_WDTIF_Pos			(3)
+#define WDT_WDCON_WDTIF_Msk			(0x1 << WDT_WDCON_WDTIF_Pos)
+#define WDT_WDCON_WDTRF_Pos			(2)
+#define WDT_WDCON_WDTRF_Msk			(0x1 << WDT_WDCON_WDTRF_Pos)
+#define WDT_WDCON_WDTRE_Pos			(1)
+#define WDT_WDCON_WDTRE_Msk			(0x1 << WDT_WDCON_WDTRE_Pos)
+#define WDT_WDCON_WDTCLR_Pos		(0)
+#define WDT_WDCON_WDTCLR_Msk		(0x1 << WDT_WDCON_WDTCLR_Pos)
+
+/*------CKCON-----------------------------------------------------*/
+#define TMR_CKCON_WTSn_Pos				(5)
+#define TMR_CKCON_WTSn_Msk				(0x7 << TMR_CKCON_WTSn_Pos)
+#define TMR_CKCON_T1M_Pos				(4)
+#define TMR_CKCON_T1M_Msk				(0x1 << TMR_CKCON_T1M_Pos)
+#define TMR_CKCON_T0M_Pos				(3)
+#define TMR_CKCON_T0M_Msk				(0x1 << TMR_CKCON_T0M_Pos)
+
+void wdt_init (uint8_t div);
+void wdt_reset(void);
 //===========================================================================================
+
 extern bit F_8Hz;
 extern bit compressor;
 extern bit heater;

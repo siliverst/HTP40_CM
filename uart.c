@@ -36,8 +36,6 @@ void uart_init(void)
 	ES0 = 1;							// включаю прерывания по UART1
     uart.rx_ready = 0;
     uart.rx_ptr = 0; 
-	
-	
 } 
 
 void uart_deinit (void)
@@ -403,14 +401,4 @@ When transmitting, bit TBn8 in SCONn is output as the 9th bit, and when receivin
 17.6.4 Mode Mode 3-9 bit asynchronous mode (variable baud rate)
 The only difference between Mode 2 and Mode 3 is that the baud rate in Mode 3 is variable.
 When REN0=1, data reception is enabled. The baud rate is variable and depends on the timer 1 or timer 4 mode.
-
-
 */
-
-
-
-
-
-
-
-

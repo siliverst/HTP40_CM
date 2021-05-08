@@ -29,6 +29,15 @@ extern "C" {
 #define EF4								1
 
 
+//---------------------------------------------------------------------------------------------------------------
+// определения для отсчёта по counter.t1_for_1hz
+//---------------------------------------------------------------------------------------------------------------
+#define f4Hz	0x01
+#define f2Hz	0x02
+#define f1Hz	0x04
+#define f05Hz	0x08
+#define f025Hz	0x10
+
 	
 #define MS_IN_SEC					1000
 #define SERVICE_FREQ                1000
@@ -38,8 +47,9 @@ extern "C" {
    
 void service_timing_init (void);
 void service_timing_proc (void);
-
-
+#ifdef SOUND_ON
+uint8_t timer05hz_get (void);
+#endif
 #ifdef	__cplusplus
 }
 #endif

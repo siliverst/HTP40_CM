@@ -10,7 +10,7 @@
 #include "measuring.h"
 #include "pin_manager.h"
 
-static data uint16_t	local_fc_sensor,local_eva_sensor,local_tr_sensor;
+static uint16_t data local_fc_sensor,local_eva_sensor,local_tr_sensor;
 static uint16_t GetADC(uint8_t mux);
 static data volatile uint8_t without_fase_detector;
 static data volatile uint8_t index_m;
